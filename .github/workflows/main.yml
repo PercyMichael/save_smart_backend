@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+
+name: 🚀 Deploy website on push
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy website
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout latest code
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      # Step 2: Sync files via FTP
+      - name: 📂 Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.realdeejays.com
+          username: savesmart@m.realdeejays.com
+          password: Os1kAP)+9{=! # 🔐 safer: move to GitHub secrets!
+          passive: true
