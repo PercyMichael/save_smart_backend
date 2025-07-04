@@ -31,14 +31,8 @@ class UpdateSavingGoalsTable extends Migration
             // Update is_completed to have a default value
             DB::statement('ALTER TABLE saving_goals MODIFY is_completed BOOLEAN NOT NULL DEFAULT false');
 
-            // Update the foreign key to include onDelete cascade
-            // First drop the existing foreign key if it exists
-            if (Schema::hasTable('saving_goals') && Schema::hasColumn('saving_goals', 'user_id') && Schema::getConnection()->getDoctrineSchemaManager()->listTableForeignKeys('saving_goals')['saving_goals_user_id_foreign']) {
-                $table->dropForeign(['user_id']);
-            }
-
-            // Then add it back with cascade
-            $table->foreign('user_id')
+            // Ensure the foreign key exists with onDelete cascade
+            $table->foreign('user_id', 'saving_goals_user_id_foreign')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
