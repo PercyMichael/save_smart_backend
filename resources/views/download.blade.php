@@ -37,7 +37,7 @@
     <div class="download-container">
         <h1>Save Smart App Download</h1>
         <p>Click the button below to download the Save Smart app for Android.</p>
-        <a href="assets/app-release.apk" download="app-release.apk">
+        <a href="{{ asset('assets/app-release.apk') }}" download="app-release.apk">
             <button>Download Save Smart App</button>
         </a>
     </div>

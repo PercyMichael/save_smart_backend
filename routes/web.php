@@ -31,6 +31,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/download', function () {
+    return view('download');
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -45,7 +49,7 @@ Route::prefix('admin')->group(function () {
     // Admin login route (if you want a separate login page for admins)
     Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
     Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin.login.submit');
-    
+
     // Add the admin dashboard route here (accessible without admin middleware)
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 });
@@ -53,7 +57,7 @@ Route::prefix('admin')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Add the dashboard route inside the admin middleware group
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    
+
     Route::resource('savingGoals', SavingGoalController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('notifications', NotificationController::class);
@@ -63,11 +67,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('analytics', AnalyticsController::class);
     Route::resource('settings', SettingsController::class);
     Route::resource('categories', CategoryController::class);
-
 });
 
 
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-
-
